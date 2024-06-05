@@ -25,7 +25,13 @@ dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
 #install
 #
 #driver libs i686 are 32 bit libs needed for steam
-dnf -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
+#dnf -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
+#may need rawhide (experimental) to get the beta driver
+dnf --releasever=rawhide -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
+
+#add to kernel command line
+#nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0
+#NVreg_UsePageAttributeTable=1 NVreg_PreserveVideoMemoryAllocations=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0
 
 ########################################################################
 #Make sure the kernel modules got compiled
@@ -35,4 +41,9 @@ sudo akmods --force
 sudo dracut --force
 
 #Reboot your device
+sudo reboot
+
+#enable Nvidia suspend services
+sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+
 sudo reboot

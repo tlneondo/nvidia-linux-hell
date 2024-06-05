@@ -1,0 +1,24 @@
+#Add the following to kernel cmd line
+
+NVreg_UsePageAttributeTable=1 NVreg_PreserveVideoMemoryAllocations=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0
+
+should improve perf
+#NVreg_UsePageAttributeTable=1
+
+#improve sleep
+NVreg_PreserveVideoMemoryAllocations=1
+
+#nvidia_drm.fbdev may break VRR?
+
+#other nvidia options???
+NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0 NVreg_DynamicPowerManagement=0x02 NVreg_EnableGpuFirmware=0
+
+
+
+#disable hardware accel in firefox and steam
+#disable firefox wayland with 
+MOZ_ENABLE_WAYLAND=0
+
+#changing refresh rate back and forth may help
+
+#Sleep issues - may be fixed by nvidia.NVreg_EnableGpuFirmware=0
