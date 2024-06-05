@@ -27,7 +27,7 @@ dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
 #driver libs i686 are 32 bit libs needed for steam
 #dnf -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
 #may need rawhide (experimental) to get the beta driver
-dnf --releasever=rawhide -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
+dnf --releasever=rawhide -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686 nvidia-driver-NvFBCOpenGL nvidia-driver-cuda cuda-devel 
 
 #add to kernel command line
 #nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0
