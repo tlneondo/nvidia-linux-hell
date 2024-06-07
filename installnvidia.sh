@@ -15,17 +15,30 @@ sudo reboot
 #Hit “Yes” and enter the password from step 3.
 #Then select “OK” and your device will reboot again.
 
-#install driver through negativ017 guide
+#remove old nvidia drivers
+sudo dnf -y remove *nvidia*
+sudo dnf -y remove xorg-x11-drv-nvidia\*
 
-#https://negativo17.org/nvidia-driver/#Repository_installation
+#official rpmfusion instructions for stable driver
+sudo dnf update -y 
+# and reboot if you are not on the latest kernel
+sudo dnf install akmod-nvidia 
+# rhel/centos users can use kmod-nvidia instead
+sudo dnf install xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-power  vulkan xorg-x11-drv-nvidia-cuda-libs xorg-x11-drv-nvidia-libs.i686 nvidia-vaapi-driver libva-utils vdpauinfo
+#optional for cuda/nvdec/nvenc support
+sudo systemctl enable nvidia-{suspend,resume,hibernate}
+#enable Nvidia suspensions
 
-#add the repo
-dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
 
-#install
-#
-#driver libs i686 are 32 bit libs needed for steam
-dnf -y install nvidia-driver nvidia-settings nvidia-driver-libs.i686
+#BETA from RAWHIDE
+
+sudo dnf install "kernel-devel-uname-r >= $(uname -r)"
+sudo dnf update -y
+sudo dnf install libva-utils vdpauinfo
+sudo dnf copr enable kwizart/nvidia-driver-rawhide -y
+sudo dnf install rpmfusion-nonfree-release-rawhide -y
+sudo dnf --enablerepo=rpmfusion-nonfree-rawhide install akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-power vulkan xorg-x11-drv-nvidia-cuda-libs xorg-x11-drv-nvidia-libs.i686 nvidia-vaapi-driver --nogpgcheck
+
 
 ########################################################################
 #Make sure the kernel modules got compiled
