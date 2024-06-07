@@ -49,3 +49,8 @@ sudo dracut --force
 
 #Reboot your device
 sudo reboot
+
+#enable Nvidia suspend services
+sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+
+sudo reboot
